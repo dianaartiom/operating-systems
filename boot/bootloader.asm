@@ -23,12 +23,12 @@ KERNEL_OFFSET equ 0x1000	;	same was used when linking the kernel
     call switch_to_pm
     jmp $ 
 
-%include "print.asm"
-%include "print_hex.asm"
-%include "32bit_print.asm"
-%include "32bit_switch.asm"
-%include "32bit_gdt.asm"
-%include "disk.asm"
+%include "boot/print.asm"
+%include "boot/print_hex.asm"
+%include "boot/32bit_print.asm"
+%include "boot/32bit_switch.asm"
+%include "boot/32bit_gdt.asm"
+%include "boot/disk.asm"
 
 [bits 16]
 load_kernel:
