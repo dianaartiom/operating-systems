@@ -1,6 +1,6 @@
 
-C_SOURCES = $(wildcard kernel/*.c)
-HEADERS = $(wildcard kernel/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h)
 OBJ = ${C_SOURCES:.c=.o} 
 
 CC = /home/diana/install/i386-elf-gcc/bin/i386-elf-gcc
@@ -36,4 +36,4 @@ debug: os-image.bin kernel.elf
 
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o boot/*.bin boot/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o boot/*.o

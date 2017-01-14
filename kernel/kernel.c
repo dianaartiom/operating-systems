@@ -1,9 +1,16 @@
-
-void enter() {
-
-}
+#include "../drivers/ports.h"
 
 void main() {
-	char* video_memory = (char *) 0xb8000;
-	*video_memory = 'D';
+    port_byte_out(0x3d4, 14); 
+    int position = port_byte_in(0x3d5);
+    position = position << 8; /* high byte */
+
+    port_byte_out(0x3d4, 15); /* requesting low byte */
+    position += port_byte_in(0x3d5);
+
+    int offset_from_vga = position * 2;
+
+    char *vga = 0xb8000;
+    vga[offset_from_vga] = 'D'; 
+    vga[offset_from_vga+1] = 0x0f; /* White text on black background */
 }
