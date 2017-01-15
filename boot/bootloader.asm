@@ -13,22 +13,12 @@ KERNEL_OFFSET equ 0x1000	;	same was used when linking the kernel
     call switch_to_pm
     jmp $
 
-
-    mov bp, 0x9000 ; set the stack
-    mov sp, bp
-
-    mov bx, MSG_REAL_MODE
-    call print ; will be written after the BIOS messages
-
-    call switch_to_pm
-    jmp $ 
-
 %include "boot/print.asm"
 %include "boot/print_hex.asm"
+%include "boot/disk.asm"
+%include "boot/32bit_gdt.asm"
 %include "boot/32bit_print.asm"
 %include "boot/32bit_switch.asm"
-%include "boot/32bit_gdt.asm"
-%include "boot/disk.asm"
 
 [bits 16]
 load_kernel:
