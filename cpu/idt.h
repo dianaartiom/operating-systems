@@ -7,7 +7,7 @@
 
 typedef struct {
     u16 low_offset;
-    u16 sel;
+    u16 sel; 
     u8 always0;
     u8 flags; 
     u16 high_offset;

@@ -75,7 +75,6 @@ void isr_install() {
     set_idt(); // Load with ASM
 }
 
-/* To print the message which defines every exception */
 char *exception_messages[] = {
     "Division By Zero",
     "Debug",
@@ -129,9 +128,12 @@ void register_interrupt_handler(u8 n, isr_t handler) {
 }
 
 void irq_handler(registers_t r) {
-    if (r.int_no >= 40) port_byte_out(0xA0, 0x20); 
-    port_byte_out(0x20, 0x20); 
+    /* After every interrupt we need to send an EOI to the PICs
+     * or they will not send another interrupt again */
+    if (r.int_no >= 40) port_byte_out(0xA0, 0x20); /* slave */
+    port_byte_out(0x20, 0x20); /* master */
 
+    /* Handle the interrupt in a more modular way */
     if (interrupt_handlers[r.int_no] != 0) {
         isr_t handler = interrupt_handlers[r.int_no];
         handler(r);
